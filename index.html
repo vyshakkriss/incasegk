@@ -13,16 +13,43 @@
 
   </header>
   <div class="quiz-container">
-    <div id="some"></div>
-    <h2 id="question"></h2>
+
+    <h2 class = "question" id="question"></h2>
+    
     <div class="flag-image">
     	<img id="flag" class="flag" src="" alt="Country flag" />
     </div>
-    <div id="details"></div>
+
+    <div class = "details" id="details">
+
+      <table>
+        <tr>
+          <th>Offical Name</th>
+        </tr>
+        <tr>
+          <td id="offical_name"></td>
+        </tr>
+        <tr>
+          <th>Continent</th>
+        </tr>
+        <tr>
+          <td id="continent"></td>
+        </tr>
+        <tr>
+          <th>Currency</th>
+        </tr>
+        <tr>
+          <td id="currency"></td>
+        </tr>
+      </table>
+    </div>
+    <div class="result" id="result"></div>
+   
+    
     <div id="options" class="options"></div>
     <button id="nextButton" class="next-button" style="display:none;">Next</button>
-    <div id="result"></div>
-    <div id="answer"></div>
+    
+    <div class="answer" id="answer"></div>
   </div>
 
   <script>
@@ -38,6 +65,9 @@
     const resultEl = document.getElementById("result");
     const answerEL = document.getElementById("answer");
     const details = document.getElementById("details");
+    const official = document.getElementById("offical_name");
+    const continent = document.getElementById("continent");
+    const currency = document.getElementById("currency");
 
     async function fetchCountries() {
       try {
@@ -94,14 +124,14 @@
 
     function loadQuestion() {
       const current = quizData[currentIndex];
-      questionEl.textContent = ` ${current.country}`;
+      questionEl.innerHTML = current.country;
       var curr = Object.values(current.currency)[0]?.name || "Unknown";
       if(current.continent == "Americas")
-        current.continent = current.subregion
-      details.innerHTML = 
-      "Official Name : " + current.official  + 
-      "<br>Continent : " + current.continent + 
-      "<br>Currency : " + curr;
+        current.continent = current.subregion;
+      
+      continent.innerHTML = current.continent; 
+      official.innerHTML = current.official;
+      currency.innerHTML = curr;
       flagEl.src = current.flag;
       optionsEl.innerHTML = "";
 	    resultEl.innerHTML = "";
